@@ -94,7 +94,6 @@
                 </div>
             </div>
         </div>
-
         <?php
         require_once "includes/login/copyright.php";
         ?>
