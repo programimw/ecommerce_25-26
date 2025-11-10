@@ -14,7 +14,7 @@ require_once "includes/no_login/header.php";
             <div class="ibox-content">
                 <form class="m-t" method="post" action="profile.php">
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Username" required="">
+                        <input type="email" id ="email" class="form-control" placeholder="Username" required="">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Password" required="">
@@ -54,6 +54,8 @@ require_once "includes/no_login/footer.php";
 
 <script>
     function validate_form(){
+        var email = document.getElementById("email").value;
+        //TODO if email is not an email format throw an error
 
     }
 
