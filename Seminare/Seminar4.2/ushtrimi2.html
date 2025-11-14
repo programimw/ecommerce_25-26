@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Ushtrimi 1</title>
+</head>
+<body>
+<div id = "output" >  </div>
+
+</body>
+
+
+<script>
+
+    var output=
+        "<table style='border:black solid 1px'" +
+        "> " +
+
+            "<thead>" +
+                "<tr>" +
+                    "<th style='border:black solid 1px'>NUMBER</th>" +
+                    "<th style='border:black solid 1px'>SQUARE</th>" +
+                    "<th style='border:black solid 1px'>CUBE</th>" +
+                "</tr>" +
+            "</thead>" +
+            "<tbody>";
+
+    for(var i=0;i<6;i++){
+        output+=
+            "<tr>" +
+                "<td style='border:black solid 1px'>"+i+"</td>" +
+                "<td style='border:black solid 1px'>"+i*i+"</td>" +
+                "<td style='border:black solid 1px'>"+i*i*i+"</td>" +
+            "</tr>"
+    }
+        output+="</tbody>"
+        output+="</table>";
+    document.getElementById("output").innerHTML=output;
+</script>
+
+</html>

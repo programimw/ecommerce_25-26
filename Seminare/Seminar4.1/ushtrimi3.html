@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ushtrimi 3</title>
+    <style>
+        table{
+            border: 1px solid black;
+            border-collapse:  collapse;
+        }
+        td, th{
+            border: 1px solid black;
+            padding: 20px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div id="output"></div>
+
+<script>
+    const out=document.getElementById("output");
+    var tableCont="<table>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>number</th> " +
+        "<th>square</th>" +
+        "<th>cube</th>"+
+        "</tr>" +
+        "</thead>" +
+        "<tbody>";
+
+    for(var i=0; i<=5; i++){
+        tableCont+="<tr> <td>"+i+"</td> " +
+            "<td>"+i*i+"</td>" +
+            "<td>"+i*i*i+"</td>"+
+            "</tr>";
+    }
+    tableCont+="</tbody></table>";
+
+    out.innerHTML=tableCont;
+</script>
+
+</body>
+</html>

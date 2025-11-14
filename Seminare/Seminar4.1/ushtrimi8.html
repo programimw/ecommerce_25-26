@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ushtrimi 8</title>
+    <style>
+        table{
+            border: 1px solid black;
+            border-collapse:  collapse;
+        }
+        td, th{
+            border: 1px solid black;
+            padding: 20px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div id="output"></div>
+
+<script>
+    var cmimet =[2.98 ,4.5 , 3.7 , 2.2 , 5.3];
+    var cmimetTotal =[0 ,0, 0 , 0 , 0];
+    var sasia =[0 ,0, 0 , 0 , 0];
+
+
+var allprod = true;
+while(allprod){
+    var code = parseInt(window.prompt(" Vendos kod nga 1-5"));
+    while(code< 1 || code>5){
+        alert("Kodi i gabuar");
+        code = parseInt(window.prompt(" Vendos kod nga 1-5"));
+    }
+    sasia[code-1] += parseInt(window.prompt("Vendos sasine e shitur"));
+    switch(code){
+        case 1: cmimetTotal[code-1] += sasia[code-1] * cmimet[code-1];
+            break ;
+        case 2: cmimetTotal[code-1] += sasia[code-1]* cmimet[code-1];
+            break ;
+        case 3: cmimetTotal[code-1] += sasia[code-1] * cmimet[code-1];
+            break ;
+        case 4: cmimetTotal[code-1] += sasia[code-1] * cmimet[code-1];
+            break ;
+        case 5: cmimetTotal[code-1] += sasia[code-1] * cmimet[code-1];
+            break ;
+    }
+    allprod = false;
+    for (var i = 0; i<sasia.length; i++ ){
+        if (sasia[i] == 0){
+            allprod = true;
+            break;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+    const out=document.getElementById("output");
+    var tableCont="<table>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>Produkti</th> " +
+        "<th>Sasia</th>" +
+        "<th>Cmimet Total</th>"+
+        "</tr>" +
+        "</thead>" +
+        "<tbody>";
+
+    for(var i=0; i<5; i++){
+        tableCont+="<tr> <td>"+i+1+"</td> " +
+            "<td>"+sasia[i]+"</td>" +
+            "<td>"+Math.floor(cmimetTotal[i])+"</td>"+
+            "</tr>";
+    }
+    tableCont+="</tbody></table>";
+
+    out.innerHTML=tableCont;
+</script>
+
+</body>
+</html>

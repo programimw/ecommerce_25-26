@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>Ushtrimi 1</title>
+<body>
+<script>
+    let number = window.prompt("Jep nje numer 5 shifror: ");
+    while(number.length != 5) {
+        alert("Ky s eshte nje numer 5 shifror !");
+       number= window.prompt("Jepni nje numer tjeter !");
+    }
+    if(number[0] == number[4] && number[1] == number[3]) {
+        document.write("Eshte palidrome.");
+    }else{
+        document.write("Nuk eshte palidrome. ");
+    }
+</script>
+
+</body>
+</head>
+</html>

@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>U2</title>
+    <style>
+
+
+    </style>
+</head>
+<body>
+<div id="output"></div>
+
+<script>
+    var output =
+        "<table border='1' width='40%'>" +
+        "<thead> " +
+        "<tr> " +
+        "<th>Numri</th>" +
+        "<th>Katrori</th>" +
+        "<th>Kubi</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>";
+
+    for (var i = 0; i < 6; i++) {
+        var style_tr = "style='background:#CCC'";
+
+        if (i % 2 == 0)
+            style_tr = "";
+
+        output +=
+            "<tr " + style_tr + " > " +
+            "<th>" + i + "</th>" +
+            "<th>" + i * i + "</th>" +
+            "<th>" + i * i * i + "</th>" +
+            "</tr>"
+    }
+
+    output += "</tbody> </table>";
+    document.getElementById("output").innerHTML = output
+
+</script>
+</body>
+</html>

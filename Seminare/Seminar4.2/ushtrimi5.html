@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>Ushtrimi 8</title>
+<body>
+
+<div id = "output" >  </div>
+
+<script>
+
+    var cmimet = [2.98, 4.5, 9.98, 4.49, 6.87];
+    var sasia = [0,0,0,0,0]
+    var cmimiTotal = [0,0,0,0,0]
+
+    var kodi;
+    while (kodi != 0){
+        kodi = parseInt(window.prompt("Vendos kodin nga 1 ne 5: "))
+        if (kodi < 0 || kodi > 5) {
+            alert("Kodi i pasakte")
+            continue
+        }
+        if (kodi == 0) {
+            break
+        }
+        sasia[kodi-1] += parseInt(window.prompt("Vendosni sasine:"))
+        switch (kodi) {
+            case 1:
+                cmimiTotal [kodi-1] = cmimet [kodi-1] * sasia[kodi-1]
+                break;
+            case 2:
+                cmimiTotal [kodi-1] = cmimet [kodi-1] * sasia[kodi-1]
+                break;
+            case 3:
+                cmimiTotal [kodi-1] = cmimet [kodi-1] * sasia[kodi-1]
+                break;
+            case 4:
+                cmimiTotal [kodi-1] = cmimet [kodi-1] * sasia[kodi-1]
+                break;
+            case 5:
+                cmimiTotal [kodi-1] = cmimet [kodi-1] * sasia[kodi-1]
+                break;
+        }
+    }
+    var output=
+        "<table style='border:black solid 1px'" +
+        "> " +
+
+        "<thead>" +
+        "<tr>" +
+        "<th style='border:black solid 1px'>PRODUKTI</th>" +
+        "<th style='border:black solid 1px'>CMIMI</th>" +
+        "<th style='border:black solid 1px'>CMIMI TOTAL</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>";
+
+    for(var i=0;i<6;i++){
+        output+=
+            "<tr>" +
+            "<td style='border:black solid 1px'>"+i+1+"</td>" +
+            "<td style='border:black solid 1px'>"+cmimet[i]+"</td>" +
+            "<td style='border:black solid 1px'>"+cmimiTotal[i]+"</td>" +
+            "</tr>"
+    }
+    output+="</tbody>"
+    output+="</table>";
+    document.getElementById("output").innerHTML=output;
+</script>
+</body>
+</head>
+</html>

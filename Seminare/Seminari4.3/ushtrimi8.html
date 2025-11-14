@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>U2</title>
+    <style>
+
+    tbody :nth-child(even){
+        background: #CCC;
+    }
+
+    </style>
+</head>
+<body>
+<div id="output"></div>
+
+<script>
+    const sasia = [0,0,0,0,0];
+    const cmimiFillestar = [2.5, 3.5, 4.5, 6, 10];
+    const cmimiTotal = [0,0,0,0,0];
+
+    let kodi = 1;
+    while(kodi !== 0){
+        kodi = parseInt(window.prompt("Vendosni kodin nga 1 ne 5"));
+        if(kodi == 0){
+            break;
+        }
+        if(kodi<0 && kodi> 5){
+            alert("Kodi i pasakte");
+            continue;
+        }
+
+        sasia[kodi-1] += parseInt(window.prompt("Vendos sasine e produktit: "));
+        cmimiTotal[kodi-1] = cmimiFillestar[kodi-1] * sasia[kodi-1];
+
+    }
+
+
+
+
+    let output =
+        "<table border='1' width='40%'>" +
+        "<thead> " +
+        "<tr> " +
+        "<th>Kodi</th>" +
+        "<th>Sasia</th>" +
+        "<th>Cmimi</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>";
+
+    for (var i = 0; i < 6; i++) {
+        var style_tr = "style='background:#CCC'";
+
+        output +=
+            "<tr> " +
+            "<th>" + i+1 + "</th>" +
+            "<th>" + sasia[i] + "</th>" +
+            "<th>" + cmimiTotal[i] + "</th>" +
+            "</tr>"
+    }
+
+    output += "</tbody> </table>";
+    document.getElementById("output").innerHTML = output
+
+</script>
+</body>
+</html>
