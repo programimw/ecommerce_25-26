@@ -3,7 +3,6 @@ require_once "includes/no_login/header.php";
 ?>
 <div class="loginColumns animated fadeInDown">
     <div class="row">
-
         <div class="col-md-6">
             <div class="ibox-content no-padding border-left-right">
                 <!--TODO: FIND A BETTER PHOTO TO LOGIN-->
