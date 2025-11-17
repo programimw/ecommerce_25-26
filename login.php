@@ -6,7 +6,7 @@ require_once "includes/no_login/header.php";
 
         <div class="col-md-6">
             <div class="ibox-content no-padding border-left-right">
-                <!--                    TODO: FIND A BETTER PHOTO TO LOGIN-->
+                <!--TODO: FIND A BETTER PHOTO TO LOGIN-->
                 <img alt="image" class="img-fluid" src="img/profile_big.jpg">
             </div>
         </div>
@@ -57,6 +57,30 @@ require_once "includes/no_login/footer.php";
         var email = document.getElementById("email").value;
         //TODO if email is not an email format throw an error
 
+
+        if (error == 0) {
+            $.ajax({
+                type: "POST",
+                url: "ajax.php",
+                // dataType: 'json',
+                async: false,
+                cache: false,
+                processData: false,
+                data: data,
+                contentType: false,
+                success: function (response, status, call) {
+                    response = JSON.parse(response);
+
+                    if (call.status == 200) {
+                        window.location.href = response.location;
+                    } else {
+                        $("#" + response.tagError).text(response.message);
+                        $("#" + response.tagElement).addClass('error');
+                        // Swal.fire('Error', response.message, 'error')
+                    }
+                },
+            })
+        }
     }
 
 
