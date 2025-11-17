@@ -15,6 +15,14 @@
 
 <body>
 <?php
+
+$fjala = "awdawdawtweawTest";
+echo password_hash($fjala, PASSWORD_DEFAULT);
+exit;
+
+
+
+
 // determine whether phone number is valid and print an error message if not
 if ( !preg_match( "/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/", $_POST["phone"] ) )
 {
