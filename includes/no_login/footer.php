@@ -12,6 +12,10 @@
         });
     });
 </script>
+
+<!-- Toastr script -->
+<script src="js/plugins/toastr/toastr.min.js"></script>
+
 <script src="js/scripts.js"></script>
 </body>
 

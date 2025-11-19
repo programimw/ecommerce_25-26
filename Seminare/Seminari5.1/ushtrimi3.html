@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<h1>Hedhja e zareve</h1>
+
+<div id="output"></div>
+<script>
+
+    var sum_numbers = [-1,-1,0,0,0,0,0,0,0,0,0,0,0];
+
+    function hidhZarin(){
+        return Math.floor(Math.random()*6+1);
+    }
+
+
+    for (var i = 0; i< 36000;i++){
+        var rez_zari1 = hidhZarin();
+        var rez_zari2 = hidhZarin();
+
+        var shuma = rez_zari1 + rez_zari2;
+
+        sum_numbers[shuma] ++;
+    }
+
+    var contentOutput =
+        "<table border='1' style='text-align: center' width='40%'>" +
+            "<thead>" +
+                "<tr>" +
+                    "<th>Suma</th>" +
+                    "<th>Numri i kombinimeve</th>" +
+                "</tr>" +
+            "</thead>" +
+            "<tbody>";
+    for (var i = 2; i< sum_numbers.length; i++) {
+        contentOutput +=
+            "<tr>" +
+                "<td>"+i+"</td>" +
+                "<td>"+sum_numbers[i]+"</td>" +
+            "</tr>"
+    }
+    contentOutput +=
+            "</tbody>" +
+            "<tfoot>" +
+                "<tr>" +
+                    "<th>Totali</th>" +
+                    "<th>36000</th>" +
+                "</tr>" +
+            "</tfoot>" +
+        "</table>";
+
+
+    document.getElementById("output").innerHTML = contentOutput;
+
+</script>
+</body>
+</html>

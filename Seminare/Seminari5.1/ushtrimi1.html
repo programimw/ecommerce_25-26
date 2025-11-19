@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ushtrimi1</title>
+</head>
+<body>
+
+
+    <script>
+
+
+        document.getElementById("llog").addEventListener("click", function(){
+            var nr1 = parseInt(document.getElementById("nr1").value);
+            var nr2= parseInt(document.getElementById("nr2").value);
+
+            console.log(nr1);
+            console.log(nr2);
+
+
+             var veprim=document.getElementById("vep").value;
+             console.log(veprim)
+            var res;
+
+
+            if(veprim=="+")
+                res=nr1+nr2;
+            else if(veprim=="-")
+                res=nr1-nr2;
+            else if(veprim=="*")
+                res=nr1*nr2;
+            else if(veprim=="/" && nr2==0)
+                res="error";
+            else
+                res=nr1/nr2;
+
+            document.getElementById("out").innerText=res;
+        });
+
+
+
+    </script>
+
+
+</body>
+
+
+</html>

@@ -16,15 +16,8 @@
 <body>
 <?php
 
-$fjala = "awdawdawtweawTest";
-echo password_hash($fjala, PASSWORD_DEFAULT);
-exit;
-
-
-
-
 // determine whether phone number is valid and print an error message if not
-if ( !preg_match( "/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/", $_POST["phone"] ) )
+if ( !preg_match( "/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/", $_GET["phone"] ) )
 {
     print( "<p class='error'>Invalid phone number</p>
             <p>A valid phone number must be in the form (555) 555-5555</p>
@@ -34,20 +27,20 @@ if ( !preg_match( "/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/", $_POST["phone"] ) )
 }
 ?>
 
-<p>Hi <?php print( $_POST["fname"] ); ?>.
+<p>Hi <?php print( $_GET["fname"] ); ?>.
     Thank you for completing the survey. You have been added to the
-    <?php print( $_POST["book"] ); ?> mailing list.</p>
+    <?php print( $_GET["book"] ); ?> mailing list.</p>
 
 <p class="head">The following information has been saved in our database:</p>
 
-<p>Name: <?php print( $_POST["fname"] ); ?>
-    <?php print( $_POST["lname"] ); ?></p>
+<p>Name: <?php print( $_GET["fname"] ); ?>
+    <?php print( $_GET["lname"] ); ?></p>
 
-<p>Email: <?php print( $_POST["email"] ); ?></p>
+<p>Email: <?php print( $_GET["email"] ); ?></p>
 
-<p>Phone: <?php print( $_POST["phone"] ); ?></p>
+<p>Phone: <?php print( $_GET["phone"] ); ?></p>
 
-<p>OS: <?php print( $_POST["os"] ); ?></p>
+<p>OS: <?php print( $_GET["os"] ); ?></p>
 
 <p class="head">This is only a sample form.
     You have not been added to a mailing list.</p>

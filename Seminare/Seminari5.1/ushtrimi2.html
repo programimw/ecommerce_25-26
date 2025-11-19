@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ushtrimi1</title>
+</head>
+<body>
+    <input id="s" placeholder="Shitjet"></input>
+    <button id="llog" onclick="log()">Log</button>
+    <p id="log"></p>
+
+<script>
+    let total= [0,0,0,0,0,0,0,0,0]
+    let vekt = ["$200–299", "$300–399", "$400–499", "$500–599", " $600–699", "$700–799", " $800–899", "$900–999","mbi $1000"]
+
+
+    function log(){
+        let p= 200 + parseInt(s.value*0.09);
+        let i= Math.floor((p/100)-2);
+        if(i>8)
+            i=8;
+        total[i]++;
+        let r=document.getElementById("log");
+
+        r.textContent= "Kategoria: "+ vekt[i]+" Vlera e pageses:"+total[i];
+    }
+    </script>
+</body>
+</html>
+

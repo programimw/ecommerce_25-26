@@ -53,6 +53,24 @@ require_once "includes/no_login/footer.php";
 
 
 <script>
+
+    toastr.options = {
+        "closeButton": true,
+        "debug": true,
+        "progressBar": true,
+        "preventDuplicates": true,
+        "positionClass": "toast-top-right",
+        "onclick": null,
+        "showDuration": "400",
+        "hideDuration": "1000",
+        "timeOut": "7000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
     function register(){
 
         var name = $("#name").val();
@@ -67,7 +85,7 @@ require_once "includes/no_login/footer.php";
         // validimi i emrit
         if (!alpha_regex.test(name)){
             $("#name").addClass("border-danger");
-            $("#name_message").text("Name must have at least 3 letters.");
+            $("#name_message").text("Name must be aphabumeric at least 3 letters.");
             error++;
         } else {
             $("#name").removeClass("border-danger")
@@ -77,7 +95,7 @@ require_once "includes/no_login/footer.php";
         // validimi i mbiemrit
         if (!alpha_regex.test(surname)){
             $("#surname").addClass("border-danger");
-            $("#surname_message").text("Surname must have at least 3 letters.");
+            $("#surname_message").text("Surname must be aphabumeric at least 3 letters.");
             error++;
         } else {
             $("#surname").removeClass("border-danger")
@@ -98,6 +116,7 @@ require_once "includes/no_login/footer.php";
         if (isEmpty(password)){
             $("#password").addClass("border-danger");
             $("#password_message").text("Password can not be empty");
+            error++;
         } else{
             $("#password").removeClass("border-danger")
             $("#password_message").text("");
@@ -107,6 +126,7 @@ require_once "includes/no_login/footer.php";
         if (confirm_password != password ){
             $("#confirm_password").addClass("border-danger");
             $("#confirm_password_message").text("Confirm password must be equal to password");
+            error++;
         } else{
             $("#confirm_password").removeClass("border-danger")
             $("#confirm_password_message").text("");
@@ -117,6 +137,7 @@ require_once "includes/no_login/footer.php";
         data.append("action", "register");
         data.append("name", name);
         data.append("surname", surname);
+        data.append("email", email);
         data.append("password", password);
         data.append("confirm_password", confirm_password);
 
@@ -132,15 +153,16 @@ require_once "includes/no_login/footer.php";
                 data: data,
                 contentType: false,
                 success: function (response, status, call) {
-                    // response = JSON.parse(response);
+                    response = JSON.parse(response);
+                    if (call.status == 200) {
 
-                    // if (call.status == 200) {
-                    //     window.location.href = response.location;
-                    // } else {
-                    //     $("#" + response.tagError).text(response.message);
-                    //     $("#" + response.tagElement).addClass('error');
-                    //     // Swal.fire('Error', response.message, 'error')
-                    // }
+                        toastr["success"](response.message, "Success")
+                        setTimeout(function (){
+                            window.location.href = response.location
+                        },2000);
+                    } else {
+                        toastr["warning"](response.message, "Warning");
+                    }
                 },
             })
         }
