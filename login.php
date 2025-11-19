@@ -51,7 +51,7 @@ require_once "includes/no_login/header.php";
 </div>
 
 <?php
-require_once "includes/no_login/footer.php";
+include "includes/no_login/footer.php";
 ?>
 
 

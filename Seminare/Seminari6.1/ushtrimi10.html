@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+Numri : <input type="text" id="num" name="num" placeholder="(555)555-5555" >
+<button onclick="kontrollo()">Kontrollon</button>
+<p id="pergjigja"> </p>
+<script>
+    function kontrollo(){
+        let s1 = document.getElementById("num").value;
+        let pjesa1=s1.substring(1,4);
+        let pjesa2=s1.substring(5,8);
+        let pjesa3=s1.substring(9,14);
+
+        document.getElementById("pergjigja").innerText="Shteti :"+pjesa1+" tre numrat e dyte"+pjesa2+"kater numrat e mbetur"+pjesa3;
+    }
+
+
+</script>
+
+
+
+
+</body>
+</html>

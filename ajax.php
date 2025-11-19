@@ -4,12 +4,54 @@ require_once "connect.php";
 if ($_POST["action"] == "login") {
 
     //1. get data
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    //2. validation of the data
-    //3. verification, if there is a user with that email and password
-    //4. response on front end and login the user. Redirect to profile
-} else if ($_POST["action"] == "register") {
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+    $password = mysqli_real_escape_string($conn, $_POST["password"]);
+    $email_regex = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+
+    /**
+     * Data Validation
+     */
+
+    // Validimi i mbiemrit
+    if (!preg_match($email_regex, $email)) {
+        http_response_code(201);
+        $response = array("message" => "E-Mail format is not allowed");
+        echo json_encode($response);
+        exit;
+    }
+
+    /**
+     * Check if there is a user with that email in DB
+     */
+    $query_check = "
+                SELECT id 
+                FROM users
+                WHERE email = '" . $email . "';";
+
+    $result_check = mysqli_query($conn, $query_check);
+
+    if (!$result_check) {
+        http_response_code(202);
+        $response = array("message" => "There is an error on Database", "error" => mysqli_error($conn), "error_number" => mysqli_errno($conn));
+        echo json_encode($response);
+        exit;
+    }
+
+    // if there is a user with that email
+    if (mysqli_num_rows($result_check) > 0) {
+        http_response_code(201);
+        $response = array("message" => "There is a user with that E-Mail");
+        echo json_encode($response);
+        exit;
+    }
+
+    http_response_code(200);
+    $response = array("message" => "User registered successfully",
+        "location" => "profile.php");
+    echo json_encode($response);
+    exit;
+}
+else if ($_POST["action"] == "register") {
     //1. get data
     $name = mysqli_real_escape_string($conn, $_POST["name"]);
     $surname = mysqli_real_escape_string($conn, $_POST["surname"]);
