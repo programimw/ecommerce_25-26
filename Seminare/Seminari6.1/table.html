@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style>
+    table{
+        border-collapse: collapse;
+        margin-top: 10px;
+
+    }
+    td{
+        width: 60px;
+        height: 30px;
+        border: 1px solid black;
+
+    }
+    </style>
+    </head>
+<body>
+rreshti: <input id="r" type=number>
+kolona: <input id="k" type=number>
+<button onclick="krijoTabele()">Krijo Tabele</button>
+<div id="zona"></div>
+<button onclick="shtoRresht()">Shto Rresht </button>
+<button onclick="shtoKolone()">Shto Kolone </button>
+<button onclick="ndryshoQel()">Ndrysho Qelize </button>
+<script>
+    function krijoTabele(){
+        let rr=parseInt(document.getElementById("r").value);
+        let kk=parseInt(document.getElementById("k").value);
+        let zona= document.getElementById("zona");
+        zona.innerHTML="";
+        let tabela=document.createElement("table")
+        for(let i=0;i<rr;i++){
+            let rresht=document.createElement("tr");
+            for (let j=0;j<kk;j++){
+                let qeliza = document.createElement("td");
+                let tekst=document.createTextNode("");
+                qeliza.appendChild(tekst);
+                rresht.appendChild(qeliza);
+            }
+            tabela.appendChild(rresht);
+            zona.appendChild(tabela);
+        }
+    }
+
+    function shtoRresht(){
+        let rr=parseInt(document.getElementById("r").value);
+        let kk=parseInt(document.getElementById("k").value);
+        let zona= document.getElementById("zona");
+        zona.innerHTML="";
+        let tabela=document.createElement("table")
+        for(let i=0;i<rr+1;i++){
+            let rresht=document.createElement("tr");
+            for (let j=0;j<kk;j++){
+                let qeliza = document.createElement("td");
+                let tekst=document.createTextNode("");
+                qeliza.appendChild(tekst);
+                rresht.appendChild(qeliza);
+            }
+            tabela.appendChild(rresht);
+            zona.appendChild(tabela);
+        }
+    }
+
+    function shtoKolone(){
+        let rr=parseInt(document.getElementById("r").value);
+        let kk=parseInt(document.getElementById("k").value);
+        let zona= document.getElementById("zona");
+        zona.innerHTML="";
+        let tabela=document.createElement("table")
+        for(let i=0;i<rr;i++){
+            let rresht=document.createElement("tr");
+            for (let j=0;j<kk+1;j++){
+                let qeliza = document.createElement("td");
+                let tekst=document.createTextNode("");
+                qeliza.appendChild(tekst);
+                rresht.appendChild(qeliza);
+            }
+            tabela.appendChild(rresht);
+            zona.appendChild(tabela);
+        }
+    }
+
+    function ndryshoQel(){
+        let tabela=document.getElementById("tabela");
+        if(!tabela) return;
+        let r=parseInt(prompt("RRESHTI:"))
+        let k=parseInt(prompt("KOLONA:"))
+        let text=parseInt(prompt("INFO:"))
+        if(tabela.rows[r].cells[k]) {
+            tabela.rows[r].cells[k].textContent = text;
+        }
+        else{ alert("pozicion i gabuar")}
+
+    }
+</script>
+
+</body>

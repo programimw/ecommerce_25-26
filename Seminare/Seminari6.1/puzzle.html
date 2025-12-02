@@ -6,19 +6,25 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
+    <link rel="stylesheet" href="animate.css">
     <style>
         table{
             text-align: center;
             margin: 0 auto;
             font-size: 50px;
             border: 2px solid black;
+            cursor: pointer;
         }
         td {
             width: 60px;
             padding: 30px;
             background-color: #f9f9f9;
             border: 2px solid black;
+        }
+
+        td:hover {
+            background-color: #edeaea;
+            font-weight: 900;
         }
     </style>
 
@@ -84,32 +90,42 @@
             var left = col - 1;
             var right = col + 1;
 
+            //
             if (top >= 0 && document.getElementById(top+"_"+col).innerText == ""){
                 document.getElementById(top+"_"+col).innerText = document.getElementById(row+"_"+col).innerText;
                 document.getElementById(row+"_"+col).innerText = "";
-            } else if (bottom >= 0 && document.getElementById(bottom+"_"+col).innerText == ""){
+            } else if (bottom < 4 && document.getElementById(bottom+"_"+col).innerText == ""){
                 document.getElementById(bottom+"_"+col).innerText = document.getElementById(row+"_"+col).innerText;
                 document.getElementById(row+"_"+col).innerText = "";
             } else if (left >= 0 && document.getElementById(row+"_"+left).innerText == ""){
                 document.getElementById(row+"_"+left).innerText = document.getElementById(row+"_"+col).innerText;
                 document.getElementById(row+"_"+col).innerText = "";
-            } else if (right >=0 && document.getElementById(row+"_"+right).innerText == ""){
+            } else if (right <4 && document.getElementById(row+"_"+right).innerText == ""){
                 document.getElementById(row+"_"+right).innerText = document.getElementById(row+"_"+col).innerText;
                 document.getElementById(row+"_"+col).innerText = "";
             }
-        }
 
+            checkWinner();
+        }
 
         function checkWinner (){
             var k = 1;
+            var check_winner = true;
             for (var i = 0 ; i< 4; i++) {
                 for (var j =0; j< 4; j++){
-                    if ( !document.getElementById(i+"_"+j).innerText== k++){
-                        alert("Nuk keni fituar");
+                    if (i == 3 && j== 3){
+                        continue;
+                    }
+                    if (parseInt(document.getElementById(i+"_"+j).innerText) != k++){
+                        check_winner = false;
                         break;
                     }
                 }
             }
+            if (check_winner){
+                alert("Ju sapo fituat. Beni reload faqen per te nisur lojen nga fillimi");
+            }
+
         }
 
     </script>
