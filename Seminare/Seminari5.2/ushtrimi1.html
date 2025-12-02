@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+      <label>Numri1:
+          <input id="nr1" type="number">
+      </label>
+      <br>
+      <br>
+      <label>Numri2:
+          <input id="nr2" type="number">
+      </label>
+      <br>
+      <br>
+       <select id="veprimi">
+           <option value="mbledhje">Mbledhje</option>
+           <option value="zbritje">zbritje</option>
+           <option value="shumeizim">shumezim</option>
+           <option value="pjestim">pjestim</option>
+       </select>
+      <br>
+      <br>
+      <button type="button" onclick="llogaritvleren()" id="llogarit_btn">Llogarit</button>
+      <label>Rezultati
+          <input id="rezultati" type="text" disabled>
+      </label>
+</body>
+<script>
+     console.log("test")
+
+
+    function llogaritvleren(){
+        let rezultati;
+        let veprimi = document.querySelector("#veprimi");
+        let rez = document.getElementById("rezultati");
+        let nr1 = document.getElementById("nr1").value;
+        let nr2 = document.getElementById("nr2").value;
+        console.log(nr1, nr2);
+         nr1=parseInt(nr1);
+         nr2=parseInt(nr2);
+        console.log(nr1, nr2);
+
+        if(veprimi.value=="mbledhje"){
+            rezultati=nr1+nr2;
+        }else if(veprimi.value=="zbritje"){
+            rezultati=nr1-nr2;
+        }else if(veprimi.value=="shumezim"){
+            rezultati=nr1*nr2;
+        }else{
+            if(nr2===0){
+                rezultati="Undefined";
+            }else{
+                rezultati=nr1/nr2;
+            }
+        }
+        rez.value=rezultati;
+    }
+
+
+</script>
+</html>

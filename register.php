@@ -10,6 +10,9 @@
         <h3>Register to Ecommerce</h3>
         <p>Create your account to buy our products.</p>
         <form class="m-t" role="form" action="login.php">
+            <input type="hidden" id = "id" name="id" value="2">
+            <input type="hidden" id = "username" name="username" value="test1234">
+
             <div class="form-group mb-4">
                 <input type="text" class="form-control" placeholder="Name"
                        name="name" id="name" >
@@ -155,7 +158,6 @@ require_once "includes/no_login/footer.php";
                 success: function (response, status, call) {
                     response = JSON.parse(response);
                     if (call.status == 200) {
-
                         toastr["success"](response.message, "Success")
                         setTimeout(function (){
                             window.location.href = response.location

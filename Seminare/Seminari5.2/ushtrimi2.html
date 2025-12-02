@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+<script>
+ var nr = [0,0,0,0,0,0,0,0,0];
+    while(true){
+        let num = parseInt(window.prompt("Vendosni sasine e shitjeve te punonjesit. (shtyp 0 per te perfunduar)"));
+        if (num<=0){
+            break;
+        }
+        let bonus = num*0.09;
+        let page = bonus + 200;
+        var index = Math.floor((page/100) - 2);
+        if(index>8) {index=8;}
+        nr[index]++;
+    }
+    var output =
+        "<table border='1'>" +
+            "<thead>" +
+                "<tr>" +
+                    "<th>Intervali</th>" +
+                    "<th>Frekuenca</th>" +
+                "</tr>" +
+            "</thead>" +
+            "<tbody>" +
+                "<tr>" +
+                    "<td>200-299</td>" +
+                    "<td>"+nr[0] +"</td>" +
+                "</tr>" +
+                        "<tr>" +
+                    "<td>300-399</td>" +
+                    "<td>"+nr[1] +"</td>" +
+                "</tr>" +
+                        "<tr>" +
+                    "<td>400-499</td>" +
+                    "<td>"+nr[2] +"</td>" +
+                "</tr>" +
+                        "<tr>" +
+                    "<td>500-599</td>" +
+                    "<td>"+nr[3] +"</td>" +
+                "</tr>" +
+                        "<tr>" +
+                    "<td>600-699</td>" +
+                    "<td>"+nr[4] +"</td>" +
+                "</tr>" +
+                        "<tr>" +
+                    "<td>700-799</td>" +
+                    "<td>"+nr[5] +"</td>" +
+                "</tr>" +
+                        "<tr>" +
+                    "<td>800-899</td>" +
+                    "<td>"+nr[6] +"</td>" +
+                "</tr>" +
+                        "<tr>" +
+                    "<td>900-999</td>" +
+                    "<td>"+nr[7] +"</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Mbi 1000</td>" +
+                    "<td>"+nr[8] +"</td>" +
+                "</tr>" +
+            "</tbody>"
+
+ document.getElementById("div1").innerHTML=output;
+</script>
+</html>

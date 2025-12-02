@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<body>
+<div id="output"></div>
+
+<script>
+    function hidhZarin() {
+        return Math.floor((Math.random() * 6) + 1);
+    }
+
+    var frekuenca = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    for (var i = 0; i < 36000; i++) {
+        var hedhja1 = hidhZarin();
+        var hedhja2 = hidhZarin();
+
+        var shuma = hedhja1 + hedhja2;
+
+        frekuenca[shuma - 2]++;
+    }
+
+
+    var output =
+        "<table border='1' width='50%'>" +
+            "<thead>" +
+                "<tr>" +
+                    "<th>Shuma</th>" +
+                    "<th>Frekuenca</th>" +
+                "</tr>" +
+            "</thead>" +
+        "<tbody>";
+
+    for (var j = 0; j<frekuenca.length; j++) {
+        output +=
+            "<tr>" +
+                "<td>" + (j + 2) + "</td>" +
+                "<td>" + frekuenca[j] + "</td>" +
+            "</tr>"
+    }
+
+    output += "</tbody>" +
+        "</table>";
+
+    document.getElementById("output").innerHTML = output;
+
+</script>
+
+
+</body>
+</html>

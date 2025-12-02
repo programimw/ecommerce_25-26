@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form >
+    <p>Numri1:<input type="text" id="inputi1" name="inputi1" ></p>
+    <p>numri2:<input type="text" id="inputi2" name="inputi2"></p>
+    <div>
+        <select id="veprimi" name="select">
+            <option value="option1" >+</option>
+            <option value="option2">-</option>
+            <option value="option3">*</option>
+            <option value="option4">/</option>
+        </select>
+    </div>
+    <button type="button" id="submit-button">Submit</button><br>
+    <input type="text" id="outputi1" disabled>
+
+</form>
+<script>
+
+    var butoni = document.getElementById("submit-button");
+    butoni.addEventListener("click",llogarit,false)
+
+    function llogarit(){
+        var numri1=parseInt(document.getElementById("inputi1").value);
+        var numri2=parseInt(document.getElementById("inputi2").value);
+        var veprimi=document.getElementById("veprimi").value;
+        var rezultati ;
+        if(veprimi==="option1"){
+            rezultati = numri1+numri2;
+        } else if(veprimi==="option2"){
+            rezultati = numri1-numri2;
+        } else if(veprimi==="option3"){
+            rezultati = numri1*numri2;
+        } else if(veprimi==="option4"){
+            if(numri2===0)
+                 rezultati = "undifined";
+            else
+                rezultati=numri1/numri2;
+        }
+
+        document.getElementById("outputi1").value = rezultati;
+
+    }
+</script>
+</body>
+</html>

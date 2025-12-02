@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+<script>
+    var nr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (var i = 0; i <= 36000; i++) {
+        let nr1 = Math.floor(Math.random() * 6 + 1);
+        let nr2 = Math.floor(Math.random() * 6 + 1);
+        let index = nr1 + nr2;
+        nr[index - 2]++;
+    }
+    var output =
+        "<table border='1'>" +
+        "<thead>" +
+        "<tr>" +
+        "<th>Shuma</th>" +
+        "<th>Frekuenca</th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody>";
+    for (var i = 0; i < 11; i++) {
+        let nr1 = i + 2;
+        output += "<tr>" +
+            "<td>" + nr1 + "</td>" +
+            "<td>" + nr[i] + "</td>" +
+            "</tr>";
+    }
+    output += "</tbody>" + "</table>";
+
+    document.getElementById("div1").innerHTML = output;
+</script>
+</html>

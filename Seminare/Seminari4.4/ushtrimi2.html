@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="output"></div>
+
+<script>
+
+    var shitja;
+    var i=1;
+    var shperndarja_pageses = [0,0,0,0,0,0,0,0,0];
+
+    while (1){
+        shitja = parseInt(window.prompt("Vendosni Sasine e shitjes se punonjesit "+i++));
+
+        if (shitja == 0){
+            break;
+        }
+
+        var bonusi = shitja * 0.09;
+        var pagesa = 200 + bonusi;
+        var index = Math.floor(pagesa/100);
+        if (index > 8){
+            index = 8;
+        }
+
+        shperndarja_pageses[index] ++;
+    }
+
+
+    var output =
+        "<table border='1' width='50%'>" +
+            "<thead>" +
+                "<tr>" +
+                    "<th>Intervali</th>" +
+                    "<th>Numri i punonjesve</th>" +
+                "</tr>" +
+            "</thead>" +
+            "<tbody>";
+
+        for (var i = 0; i<9; i++){
+            var intervali;
+
+            if (i == 8){
+                intervali = "Mbi $1000";
+            } else {
+                intervali = (i+2)+"00 - "+(i+2)+"99";
+            }
+
+            output +=
+                "<tr>" +
+                    "<td>"+intervali+"</td>" +
+                    "<td>"+shperndarja_pageses[i]+"</td>" +
+                "</tr>"
+        }
+
+    output += "</tbody>" +
+        "</table>";
+
+
+    document.getElementById("output").innerHTML = output;
+
+</script>
+
+
+</body>
+</html>

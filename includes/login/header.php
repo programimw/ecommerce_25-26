@@ -19,6 +19,17 @@
 <body>
 <div id="wrapper">
 <?php
+
+session_start();
+/**
+ * Check if the user is logged in
+ */
+if (!isset($_SESSION["id"]) && !isset($_SESSION["email"])) {
+    $_SESSION = array();
+    session_destroy();
+    header("location:login.php");
+}
+
 // Example URL path
 $urlPath = $_SERVER['REQUEST_URI'];
 

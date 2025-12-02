@@ -9,8 +9,6 @@ require_once "includes/no_login/header.php";
                 <img alt="image" class="img-fluid" src="img/profile_big.jpg">
             </div>
         </div>
-<!--        border-danger-->
-<!--        text-danger-->
         <div class="col-md-6">
             <div class="ibox-content">
                 <form class="m-t" method="post" action="profile.php">
@@ -93,22 +91,19 @@ include "includes/no_login/footer.php";
             $.ajax({
                 type: "POST",
                 url: "ajax.php",
-                // dataType: 'json',
                 async: false,
                 cache: false,
                 processData: false,
                 data: data,
                 contentType: false,
                 success: function (response, status, call) {
-                    // response = JSON.parse(response);
-
-                    // if (call.status == 200) {
-                    //     window.location.href = response.location;
-                    // } else {
-                    //     $("#" + response.tagError).text(response.message);
-                    //     $("#" + response.tagElement).addClass('error');
-                    //     // Swal.fire('Error', response.message, 'error')
-                    // }
+                    console.log(response);
+                    response = JSON.parse(response);
+                    if (call.status == 200) {
+                        window.location.href = response.location
+                    } else {
+                        toastr["warning"](response.message, "Warning");
+                    }
                 },
             })
         }

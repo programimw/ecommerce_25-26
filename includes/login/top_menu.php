@@ -14,10 +14,9 @@
             <span class="m-r-sm text-muted welcome-message">Welcome to Ecommerce.</span>
         </li>
         <li>
-            <a href="login.php">
+            <a href="logout.php">
                 <i class="fa fa-sign-out"></i> Log out
             </a>
         </li>
     </ul>
-
 </nav>

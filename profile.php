@@ -1,6 +1,25 @@
     <?php
         require_once "includes/login/menu.php";
         require_once "includes/login/header.php";
+
+    /**
+     * Get User Data
+     */
+    require_once "connect.php";
+    $id = mysqli_real_escape_string($conn, $_SESSION['id']);
+    $query_user_data = "SELECT name,
+                               surname,
+                               email
+                        FROM users WHERE id = '".$id."'";
+
+    $result_user_data = mysqli_query($conn, $query_user_data);
+    if (!$result_user_data) {
+        echo "Error: " . $query_user_data . "<br>" . mysqli_error($conn);
+        exit;
+    }
+
+    $row_user_data = mysqli_fetch_assoc($result_user_data);
+
     ?>
 
     <div class="gray-bg" id="page-wrapper">
@@ -68,25 +87,20 @@
                             <form action="login.php" class="m-t" role="form">
                                 <div class="form-group">
                                     <input class="form-control" id="name" name="name"
-                                           placeholder="Name" required="" type="text">
+                                           placeholder="Name" required="" type="text"
+                                    value="<?=$row_user_data['name']?>">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" id="surname" name="surname"
-                                           placeholder="Surname" required="" type="text">
+                                           placeholder="Surname" required="" type="text"
+                                           value="<?=$row_user_data['surname']?>">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" id="email" name="email"
-                                           placeholder="Email" required="" type="email">
+                                           placeholder="Email" required="" type="email"
+                                           value="<?=$row_user_data['email']?>">
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="password" name="password"
-                                           placeholder="Password" required="" type="password">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="confirm_password" name="confirm_passoword"
-                                           placeholder="Confirm Password" required="" type="password">
-                                </div>
-                                <button class="btn btn-primary block m-b" type="submit"><i class="fa fa-save"></i> Save</button>
+                                <button class="btn btn-primary block m-b" type="button" onclick="update_user()"><i class="fa fa-save"></i> Save</button>
                             </form>
                         </div>
                     </div>
@@ -103,3 +117,80 @@
     <?php
         require_once "includes/login/footer.php";
     ?>
+
+    <script type="text/javascript">
+
+        function update_user(){
+
+            var name = $("#name").val();
+            var surname = $("#surname").val();
+            var email = $("#email").val();
+            var email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            var alpha_regex = /^[a-zA-Z]{3,40}$/;
+            var error = 0;
+
+            // validimi i emrit
+            if (!alpha_regex.test(name)){
+                $("#name").addClass("border-danger");
+                $("#name_message").text("Name must be aphabumeric at least 3 letters.");
+                error++;
+            } else {
+                $("#name").removeClass("border-danger")
+                $("#name_message").text("");
+            }
+
+            // validimi i mbiemrit
+            if (!alpha_regex.test(surname)){
+                $("#surname").addClass("border-danger");
+                $("#surname_message").text("Surname must be aphabumeric at least 3 letters.");
+                error++;
+            } else {
+                $("#surname").removeClass("border-danger")
+                $("#surname_message").text("");
+            }
+
+            // Validation of the E-Mail
+            if (!email_regex.test(email)){
+                $("#email").addClass("border-danger");
+                $("#email_message").text("E-Mail format is not allowed");
+                error++;
+            } else {
+                $("#email").removeClass("border-danger")
+                $("#email_message").text("");
+            }
+
+
+
+            // prepare the data to send to backend
+            var data = new FormData();
+            data.append("action", "update_user");
+            data.append("name", name);
+            data.append("surname", surname);
+            data.append("email", email);
+
+            // send data on backed
+            if (error == 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax.php",
+                    // dataType: 'json',
+                    async: false,
+                    cache: false,
+                    processData: false,
+                    data: data,
+                    contentType: false,
+                    success: function (response, status, call) {
+                        response = JSON.parse(response);
+                        if (call.status == 200) {
+                            toastr["success"](response.message, "Success")
+                            setTimeout(function (){
+                                window.location.href = response.location
+                            },2000);
+                        } else {
+                            toastr["warning"](response.message, "Warning");
+                        }
+                    },
+                })
+            }
+        }
+    </script>
