@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<button onclick="addTable();">Shto nje tabele</button>
+<button onclick="addRow();">Shto nje rresht</button>
+<button onclick="addCol();">Shto nje Kolone</button>
+
+<table id="table" border="1" style="width: 70%;">
+
+</table>
+
+<script>
+    function addTable(){
+        var row = parseInt(window.prompt("Vendosni numrin e rreshtave"));
+        var columns = parseInt(window.prompt("Vendosni numrin e shtyllave"));
+
+        var table = document.getElementById("table");
+        table.innerHTML = "";
+
+        for (var i = 0; i < row; i++) {
+            var tbl_row = table.insertRow();
+
+            for (var j = 0; j < columns; j++) {
+                var cell = tbl_row.insertCell();
+
+                cell.innerText = i+":"+j;
+            }
+
+        }
+
+    }
+
+    function addRow(){
+        var table = document.getElementById("table");
+
+        if (table.rows.length <= 0){
+            alert("Tabela nuk ekziston, krijoni nje tabele");
+            return;
+        }
+
+        var cols = table.rows[0].cells.length;
+
+        var newRow = table.insertRow();
+
+        for (var j = 0; j < cols; j++) {
+            var cell = newRow.insertCell();
+            cell.innerText = 'new';
+        }
+
+    }
+
+    function addCol(){
+        var table = document.getElementById("table");
+
+        if (table.rows.length <= 0){
+            alert("Tabela nuk ekziston, krijoni nje tabele");
+            return;
+        }
+
+        for(var i = 0; i < table.rows.length; i++) {
+            var tbl_cell = table.rows[i].insertCell();
+            tbl_cell.innerText = "New";
+        }
+
+    }
+
+
+</script>
+
+
+</body>
+</html>

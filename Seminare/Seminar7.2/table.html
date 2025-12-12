@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid black;
+            width: 70%;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Table Manipulations</h1>
+
+<button onclick="createTable()">Krijoni Tabele</button>
+<button onclick="addRow()">Shto Rresht</button>
+<button onclick="addCol()">Shto Kolone</button>
+<button onclick="editCell()">Modifiko Qelizen</button>
+<br><br>
+<table border="1" id="table">
+
+</table>
+
+<script>
+    function createTable() {
+        var rows = parseInt(window.prompt("Vendosni numrin e rreshtave"));
+        var cols = parseInt(window.prompt("Vendosni numrin e shtyllave"));
+
+        var tableEl = document.getElementById("table");
+        tableEl.innerHTML = "";
+
+        for (var i = 0; i < rows; i++) {
+            var row = tableEl.insertRow();
+
+            for (var j = 0; j < cols; j++) {
+                row.insertCell().innerText = i + ":" + j;
+
+            }
+        }
+    }
+
+    function addRow() {
+        var tableEl = document.getElementById("table");
+
+        if (tableEl.rows.length <1) {
+            alert("Tabela nuk ekziston. Krijoni fillimisht tabelen");
+            return;
+        }
+        var col_nr = tableEl.rows[0].cells.length;
+        var newRow = tableEl.insertRow();
+        for (var i = 0; i < col_nr; i++) {
+            newRow.insertCell().innerText = "New";
+        }
+    }
+
+    function addCol() {
+        var tableEl = document.getElementById("table");
+        var row_nr = tableEl.rows.length;
+
+        if (row_nr <= 0) {
+            alert("Tabela nuk ekziston. Krijoni fillimisht tabelen");
+            return;
+        }
+
+        for (var i = 0; i < row_nr; i++) {
+            tableEl.rows[i].insertCell().innerText = "New";
+        }
+    }
+
+    function editCell() {
+        var tableEl = document.getElementById("table");
+
+        if (tableEl.rows.length <= 0) {
+            alert("Tabela nuk ekziston. Krijoni fillimisht tabelen");
+            return;
+        }
+
+        var row = parseInt(window.prompt("Vendosni rreshtin"))-1;
+        var col = parseInt(window.prompt("Vendosni shtyllen"))-1;
+        var newStr = window.prompt("Vendosni fjalen");
+        console.log("Row: "+row);
+        console.log("Row Length: "+tableEl.rows.length);
+        console.log("Col: "+col);
+        console.log("Col Length: "+tableEl.rows[0].cells.length);
+
+        if (row >= tableEl.rows.length || col >= tableEl.rows[0].cells.length) {
+            alert("Kordinata e qelizes e gabuar. Korrigjo kordinaten");
+            return;
+        }
+
+        tableEl.rows[row].cells[col].innerText = newStr;
+    }
+</script>
+
+</body>
+</html>

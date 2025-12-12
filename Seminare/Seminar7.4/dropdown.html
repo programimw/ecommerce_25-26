@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<select name="states" id="states">
+    <option value="Italy">Italy</option>
+    <option value="Albania">Albania</option>
+    <option value="Austria">Austria</option>
+    <option value="Greece">Greece</option>
+    <option value="Kosovo">Kosovo</option>
+</select>
+
+<br><br>
+<button onclick="deleteOption()">Fshij Opsion</button>
+
+
+<script>
+    function deleteOption(){
+        var list = document.getElementById("states");
+        alert("Numri i opsioneve eshte:"+list.options.length);
+        var option_nr = parseInt(window.prompt("Vendosni nr e opsinit"))-1;
+
+        if (option_nr >= list.options.length) {
+            alert("Opsioni i gabuar");
+            return;
+        }
+
+        list.options.remove(option_nr);
+    }
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

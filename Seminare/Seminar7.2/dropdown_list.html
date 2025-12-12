@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        select{
+            margin: 0 auto;
+            width: 50%;
+            font-size: 50px;
+            border: 2px solid black;
+            padding: 23px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <button onclick="optionNr()">Nr options</button>
+    <button onclick="deleteOption()">Fshij Opsionin</button>
+    <br><br>
+    <select name="list" id="list">
+        <option value="Option 1">Option 1</option>
+        <option value="Option 2">Option 2</option>
+        <option value="Option 3">Option 3</option>
+        <option value="Option 4">Option 4</option>
+    </select>
+
+</div>
+
+<script>
+    function optionNr(){
+        var sel = document.getElementById("list");
+
+        alert("Nurmi i opsioneve :"+ sel.options.length);
+    }
+
+
+    function deleteOption(){
+        var sel = document.getElementById("list");
+
+        if (sel.options.length <=0){
+            alert("Select nuk ka asnje opsion");
+            return;
+        }
+        var optionNr = parseInt(window.prompt("Vendosni opsionin qe doni te fshini"))-1;
+
+        if (optionNr >= sel.options.length){
+            alert("Opsioni juaj jashte numrit te opsioneve");
+            return;
+        }
+
+        sel.options[optionNr].remove();
+    }
+</script>
+</body>
+</html>

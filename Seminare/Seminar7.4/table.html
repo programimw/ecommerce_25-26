@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bolder;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Manipulimi i tabelave</h1>
+    <button onclick="createTable()">Krijo nje tabele</button>
+    <button onclick="addRow()">Shto rresht</button>
+    <button onclick="addCol()">Shto Kolone</button>
+    <button onclick="editCell()">Ndrysho qelizen</button>
+    <br><br>
+
+    <table border="1" width="50%" id="tbl">
+
+    </table>
+
+    <script>
+        function createTable(){
+            var row_nr = parseInt(window.prompt("Vendosni numrin e rreshtave"));
+            var col_nr = parseInt(window.prompt("Vendosni numrin e shtyllave"));
+
+            var table = document.getElementById("tbl");
+
+            for (var i = 0; i < row_nr; i++) {
+                var row = table.insertRow();
+                for (var j = 0; j < col_nr; j++) {
+                    row.insertCell().innerText = i+":"+j;
+                }
+            }
+        }
+
+
+        function addRow(){
+            var table = document.getElementById("tbl");
+
+            if (table.rows.length < 1) {
+                alert("Krijo fillimisht tabelen.");
+                return;
+            }
+
+            var col_nr = table.rows[0].cells.length;
+            var row = table.insertRow();
+            for (var i = 0; i < col_nr; i++) {
+                row.insertCell().innerText = "New";
+            }
+
+        }
+
+        function addCol(){
+            var table = document.getElementById("tbl");
+            var row_nr = table.rows.length;
+
+            if (row_nr < 1) {
+                alert("Krijo fillimisht tabelen.");
+                return;
+            }
+
+            for (var i=0; i<row_nr; i++){
+                table.rows[i].insertCell().innerText = "New";
+            }
+
+        }
+
+
+        function editCell(){
+            var table = document.getElementById("tbl");
+
+            if (table.rows.length < 1) {
+                alert("Krijo fillimisht tabelen.");
+                return;
+            }
+
+            var row = parseInt(window.prompt("Vendosni rreshtin e qelizes")) -1;
+            var col = parseInt(window.prompt("Vendosni kolonen e qelizes")) - 1;
+            var word = window.prompt("Vendosni fjalen");
+
+            if (row >= table.rows.length || col >= table.rows[0].cells.length) {
+                alert("Kordinata e gabuar");
+            }
+
+            table.rows[row].cells[col].innerText = word;
+
+        }
+
+    </script>
+
+</body>
+</html>

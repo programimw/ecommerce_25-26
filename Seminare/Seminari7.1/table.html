@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ushtrimet me Tabela</title>
+    <style>
+        table, td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Ushtrimet 9–12</h2>
+
+<button onclick="krijoTabelen()">9. Krijo tabele</button>
+<button onclick="shtoRresht()">10. Shto rresht</button>
+<button onclick="shtoKolone()">11. Shto kolone</button>
+<button onclick="ndryshoQelizen()">12. Ndrysho qelize</button>
+
+<br><br>
+<table id="tabela"></table>
+
+<script>
+
+// -----------------------------
+// 9. FUNKSIONI KRIJO TABELË
+// -----------------------------
+function krijoTabelen() {
+    let rreshta = parseInt(prompt("Jep numrin e rreshtave:"));
+    let kolona = parseInt(prompt("Jep numrin e kolonave:"));
+
+    let tabela = document.getElementById("tabela");
+    tabela.innerHTML = ""; // pastron tabelen
+
+    for (let i = 0; i < rreshta; i++) {
+        let row = tabela.insertRow();
+        for (let j = 0; j < kolona; j++) {
+            let cell = row.insertCell();
+            cell.innerHTML = `${i+1}:${j+1}`;
+        }
+    }
+}
+
+// -----------------------------
+// 10. FUNKSIONI SHTO RRESHT
+// -----------------------------
+function shtoRresht() {
+    let tabela = document.getElementById("tabela");
+
+    if (tabela.rows.length === 0) {
+        alert("Nuk ka tabele. Krijo fillimisht tabelen!");
+        return;
+    }
+
+    let kolona = tabela.rows[0].cells.length;
+    let rreshtRi = tabela.insertRow();
+
+    for (let i = 0; i < kolona; i++) {
+        let cell = rreshtRi.insertCell();
+        cell.innerHTML = `New`;
+    }
+}
+
+// -----------------------------
+// 11. FUNKSIONI SHTO KOLONË
+// -----------------------------
+function shtoKolone() {
+    let tabela = document.getElementById("tabela");
+
+    if (tabela.rows.length === 0) {
+        alert("Nuk ka tabele. Krijo fillimisht tabelen!");
+        return;
+    }
+
+    for (let i = 0; i < tabela.rows.length; i++) {
+        let cell = tabela.rows[i].insertCell();
+        cell.innerHTML = "New";
+    }
+}
+
+// -----------------------------
+// 12. FUNKSIONI NDËRRO QELIZËN
+// -----------------------------
+function ndryshoQelizen() {
+    let tabela = document.getElementById("tabela");
+
+    if (tabela.rows.length === 0) {
+        alert("Nuk ka tabele. Krijo fillimisht tabelen!");
+        return;
+    }
+
+    let r = parseInt(prompt("Jep numrin e rreshtit:")) - 1;
+    let k = parseInt(prompt("Jep numrin e kolones:")) - 1;
+
+    if (tabela.rows[r] && tabela.rows[r].cells[k]) {
+        let text = prompt("Jep tekstin e ri per qelizen:");
+        tabela.rows[r].cells[k].innerHTML = text;
+    } else {
+        alert("Koordinata te pasakta!");
+    }
+}
+
+</script>
+
+</body>
+</html>
