@@ -12,6 +12,9 @@
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
     <!-- Toastr style -->
     <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <!-- Datatable -->
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -19,7 +22,8 @@
 <body>
 <div id="wrapper">
 <?php
-
+require_once "connect.php";
+error_reporting(0);
 session_start();
 /**
  * Check if the user is logged in

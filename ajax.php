@@ -1,5 +1,6 @@
 <?php
 require_once "connect.php";
+require_once "functions.php";
 
 if ($_POST["action"] == "login") {
 
@@ -34,6 +35,7 @@ if ($_POST["action"] == "login") {
     $query_check = "
                 SELECT id, 
                        email,
+                       role,
                        password
                 FROM users
                 WHERE email = '" . $email . "';";
@@ -62,15 +64,21 @@ if ($_POST["action"] == "login") {
         echo json_encode($response);
         exit;
     }
-
+    // TODO: VERIFY USERS EMAIL. If email not verified, he can not log in.
 
     session_start();
     $_SESSION["id"] = $results["id"];
     $_SESSION["email"] = $results["email"];
+    $_SESSION["role"] = $results["role"];
+    $location = "profile.php";
+
+    if ($results["role"] == "admin"){
+        $location = "users.php";
+    }
 
     http_response_code(200);
     $response = array("message" => "User logged in successfully",
-        "location" => "profile.php");
+        "location" => $location);
     echo json_encode($response);
     exit;
 }
@@ -83,6 +91,9 @@ else if ($_POST["action"] == "register") {
     $confirm_password = mysqli_real_escape_string($conn, $_POST["confirm_password"]);
     $email_regex = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
     $alpha_regex = "/^[a-zA-Z]{3,40}$/";
+    $email_code = rand(10000, 99999);
+    $email_token = password_hash($email_code, PASSWORD_BCRYPT);
+    $valid_date = date('Y-m-d H:i:s', strtotime(' +5 minutes '));;
 
     /**
      * Data Validation
@@ -158,6 +169,10 @@ else if ($_POST["action"] == "register") {
                      name = '" . $name . "',
                      surname = '" . $surname . "',
                      email = '" . $email . "',
+                     email_code = '" . $email_code . "',
+                     code_date = '" . $valid_date . "',
+                     email_token = '" . $email_token . "',
+                     token_date = '" . $valid_date . "',
                      password = '" . password_hash($password, PASSWORD_BCRYPT) . "',
                      created_at = '" . date("Y-m-d H:i:s") . "' ";
 
@@ -169,8 +184,15 @@ else if ($_POST["action"] == "register") {
         exit;
     }
 
-    // TODO: Send E-Mail to the user's email.
-    // He need to verify his E-Mail to log in.
+    /**
+     * Send E-Mail to user to verify his E-Mail address
+     */
+    $user_id = mysqli_insert_id($conn);
+    $data['code'] = $email_code;
+    $data['id'] = $user_id;
+    $data['token'] = $email_token;
+    $data['user_email'] = $email;
+    sendEmail($data);
 
     http_response_code(200);
     $response = array("message" => "User registered successfully",

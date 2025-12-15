@@ -27,6 +27,13 @@
                     <span class="nav-label">Products</span>
                 </a>
             </li>
+            <?php if ($_SESSION['role'] == 'admin' ) { ?>
+                <li id="users">
+                    <a href="users.php"><i class="fa fa-users"></i>
+                        <span class="nav-label">Users</span>
+                    </a>
+                </li>
+            <?php }?>
         </ul>
 
     </div>

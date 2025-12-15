@@ -1,6 +1,6 @@
 <?php
-require_once "includes/login/menu.php";
 require_once "includes/login/header.php";
+require_once "includes/login/menu.php";
 ?>
 
 <div id="page-wrapper" class="gray-bg">
