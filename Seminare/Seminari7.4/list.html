@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<button onclick="deleteOption()">Fshij Opsion</button>
+
+
+<select name="list" id="list">
+    <option value="Albania">Albania</option>
+    <option value="Italy">Italy</option>
+    <option value="Kosovo">Kosovo</option>
+    <option value="Ireland">Ireland</option>
+</select>
+
+</body>
+</html>
+
+<script>
+    function deleteOption() {
+        var list = document.getElementById("list");
+        var opt_nr = parseInt(window.prompt("Vendos numrin e opsionit")) -1;
+
+        if (opt_nr < 0 || opt_nr >= list.options.length ){
+            alert("Pozicioini i gabuar. Vendos poz e sakte");
+            return;
+        }
+
+        list.options[opt_nr].remove();
+
+        alert("Numri i opsioneve :"+ list.options.length);
+    }
+</script>

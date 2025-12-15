@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+    <link href="animate.css" rel="stylesheet">
+    <style>
+        table {
+            font-size: 30px;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+<button onclick="createTable()"> Krijo tabele</button>
+<button onclick="addRow()"> Shto nje rresht</button>
+<button onclick="addCol()"> Shto nje kolone</button>
+<button onclick="editCell()">Modifiko qelizen</button>
+<br><br>
+<table border="1" id="tbl" width="50%"></table>
+
+
+<script>
+    function createTable() {
+        var row_nr = parseInt(window.prompt("Vendosni numrin e rreshtave"));
+        var col_nr = parseInt(window.prompt("Vendosni numrin e shtyllave"));
+
+        var table = document.getElementById("tbl");
+        table.innerHTML = "";
+
+        for (var i = 0; i < row_nr; i++) {
+            var row = table.insertRow();
+            for (var j = 0; j < col_nr; j++) {
+                row.insertCell().textContent = (i + 1) + ":" + (j + 1);
+            }
+        }
+    }
+
+    function addRow() {
+        var table = document.getElementById("tbl");
+
+        if (table.rows.length < 1) {
+            alert("Krijo fillimisht tabelen");
+            return;
+        }
+        var col_nr = table.rows[0].cells.length;
+        var row = table.insertRow();
+        for (var i = 0; i < col_nr; i++) {
+            row.insertCell().textContent = "New";
+        }
+    }
+
+    function addCol() {
+        var table = document.getElementById("tbl");
+
+        if (table.rows.length < 1) {
+            alert("Krijo fillimisht tabelen");
+            return;
+        }
+        var row_nr = table.rows.length;
+
+        for (var i = 0; i < row_nr; i++) {
+            table.rows[i].insertCell().textContent = "New";
+        }
+
+    }
+
+    function editCell() {
+        var row = parseInt(window.prompt("Vendosni rreshtin e qelizes"))-1;
+        var col = parseInt(window.prompt("Vendosni shtyllen e qelizes"))-1;
+        var str = window.prompt("Vedosnu fjalen e qelizes");
+        var table = document.getElementById("tbl");
+
+        if (row < 0 || col < 0 || row >= table.rows.length
+            || col >= table.rows[0].cells.length) {
+            alert("Vendosni koordinaten e sakte");
+            return;
+        }
+        table.rows[row].cells[col].textContent = str;
+    }
+</script>
+</body>
+</html>

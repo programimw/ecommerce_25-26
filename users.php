@@ -2,6 +2,9 @@
 require_once "includes/login/header.php";
 require_once "includes/login/menu.php";
 
+if ($_SESSION['role'] != "admin"){
+    header("Location: profile.php");
+}
 
 $query_users = "SELECT 
                 id, 
@@ -20,17 +23,15 @@ if (!$result_users){
     exit;
 }
 
-$row_users = mysqli_fetch_assoc($result_users);
-
 $data = array();
-while ($row_users = mysqli_fetch_assoc($result_users)){
-    $data[$row_users['id']]['id'] = $row_users['id'];
-    $data[$row_users['id']]['name'] = $row_users['name'];
-    $data[$row_users['id']]['surname'] = $row_users['surname'];
-    $data[$row_users['id']]['email'] = $row_users['email'];
-    $data[$row_users['id']]['role'] = $row_users['role'];
-    $data[$row_users['id']]['email_verified'] = $row_users['email_verified'];
-    $data[$row_users['id']]['created_at'] = $row_users['created_at'];
+while ($row = mysqli_fetch_assoc($result_users)){
+    $data[$row['id']]['id'] = $row['id'];
+    $data[$row['id']]['name'] = $row['name'];
+    $data[$row['id']]['surname'] = $row['surname'];
+    $data[$row['id']]['email'] = $row['email'];
+    $data[$row['id']]['role'] = $row['role'];
+    $data[$row['id']]['email_verified'] = $row['email_verified'];
+    $data[$row['id']]['created_at'] = $row['created_at'];
 }
 
 ?>
