@@ -1,6 +1,7 @@
 <?php
 require_once "connect.php";
 require_once "functions.php";
+error_reporting(0);
 
 if ($_POST["action"] == "login") {
 
@@ -28,7 +29,6 @@ if ($_POST["action"] == "login") {
         echo json_encode($response);
         exit;
     }
-
     /**
      * Check if there is a user with that email in DB
      */
@@ -72,17 +72,15 @@ if ($_POST["action"] == "login") {
     $_SESSION["role"] = $results["role"];
     $location = "profile.php";
 
-    if ($results["role"] == "admin"){
+    if ($results["role"] == "admin") {
         $location = "users.php";
     }
 
     http_response_code(200);
-    $response = array("message" => "User logged in successfully",
-        "location" => $location);
+    $response = array("message" => "User logged in successfully", "location" => $location);
     echo json_encode($response);
     exit;
-}
-else if ($_POST["action"] == "register") {
+} else if ($_POST["action"] == "register") {
     //1. get data
     $name = mysqli_real_escape_string($conn, $_POST["name"]);
     $surname = mysqli_real_escape_string($conn, $_POST["surname"]);
@@ -93,7 +91,7 @@ else if ($_POST["action"] == "register") {
     $alpha_regex = "/^[a-zA-Z]{3,40}$/";
     $email_code = rand(10000, 99999);
     $email_token = password_hash($email_code, PASSWORD_BCRYPT);
-    $valid_date = date('Y-m-d H:i:s', strtotime(' +5 minutes '));;
+    $valid_date = date('Y-m-d H:i:s', strtotime(' +5 minutes '));
 
     /**
      * Data Validation
@@ -195,8 +193,7 @@ else if ($_POST["action"] == "register") {
     sendEmail($data);
 
     http_response_code(200);
-    $response = array("message" => "User registered successfully",
-                       "location" => "login.php");
+    $response = array("message" => "User registered successfully", "location" => "login.php");
     echo json_encode($response);
     exit;
 } else if ($_POST["action"] == "update_user") {
@@ -283,8 +280,183 @@ else if ($_POST["action"] == "register") {
     // He need to verify his E-Mail to log in.
 
     http_response_code(200);
-    $response = array("message" => "User registered successfully",
-        "location" => "login.php");
+    $response = array("message" => "User registered successfully", "location" => "login.php");
+    echo json_encode($response);
+    exit;
+} else if ($_POST["action"] == "fillModalData") {
+    session_start();
+    $id = mysqli_real_escape_string($conn, $_POST["id"]);
+
+    // check if the user is admin.
+    if ($_SESSION['role'] != "admin") {
+        http_response_code(202);
+        $response = array("message" => "You do not have permission to access this end point");
+        echo json_encode($response);
+        exit;
+    }
+
+    // check if the user exists
+    /**
+     * Check if there is a user with that email in DB
+     */
+    $query_check = "
+                SELECT name,
+                       surname,
+                       email
+                FROM users
+                WHERE id = '" . $id . "';";
+
+    $result_check = mysqli_query($conn, $query_check);
+    $row = mysqli_fetch_assoc($result_check);
+    if (!$result_check) {
+        http_response_code(202);
+        $response = array("message" => "There is an error on Database", "error" => mysqli_error($conn), "error_number" => mysqli_errno($conn));
+        echo json_encode($response);
+        exit;
+    }
+
+    // if there is a user with that email
+    if (mysqli_num_rows($result_check) == 0) {
+        http_response_code(201);
+        $response = array("message" => "There is no user in our system with that ID");
+        echo json_encode($response);
+        exit;
+    }
+
+
+    // if the user exists send the data
+    $data = array();
+    $data['name'] = $row['name'];
+    $data['surname'] = $row['surname'];
+    $data['email'] = $row['email'];
+
+    http_response_code(200);
+    $response = array("message" => "Data fetched successfully", "data" => $data);
+    echo json_encode($response);
+    exit;
+
+} else if ($_POST["action"] == "update_user_data") {
+    session_start();
+    // check if the user is admin.
+    if ($_SESSION['role'] != "admin") {
+        http_response_code(202);
+        $response = array("message" => "You do not have permission to access this end point");
+        echo json_encode($response);
+        exit;
+    }
+
+    //1. get data
+    $id = mysqli_real_escape_string($conn, $_POST["id"]);
+    $name = mysqli_real_escape_string($conn, $_POST["name"]);
+    $surname = mysqli_real_escape_string($conn, $_POST["surname"]);
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+    $email_regex = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+    $alpha_regex = "/^[a-zA-Z]{3,40}$/";
+
+    /**
+     * Data Validation
+     */
+    // validimi i emrit
+    if (!preg_match($alpha_regex, $name)) {
+
+        http_response_code(201);
+        $response = array("message" => "Name must be aphabumeric at least 3 letters.");
+        echo json_encode($response);
+        exit;
+    }
+
+    // Validimi i mbiemrit
+    if (!preg_match($alpha_regex, $surname)) {
+        http_response_code(201);
+        $response = array("message" => "Surname must be aphabumeric at least 3 letters.");
+        echo json_encode($response);
+        exit;
+    }
+
+    // Validimi i email
+    if (!preg_match($email_regex, $email)) {
+        http_response_code(201);
+        $response = array("message" => "E-Mail format is not allowed");
+        echo json_encode($response);
+        exit;
+    }
+
+    /**
+     * Check if there is a user with that id exists in DB
+     */
+    $query_check = "SELECT id, email, email_verified
+                    FROM users
+                    WHERE id = '" . $id . "';";
+
+    $result_check = mysqli_query($conn, $query_check);
+
+    if (!$result_check) {
+        http_response_code(202);
+        $response = array("message" => "There is an error on Database", "error" => mysqli_error($conn), "error_number" => mysqli_errno($conn));
+        echo json_encode($response);
+        exit;
+    }
+
+    // if there is a user with that email
+    if (mysqli_num_rows($result_check) == 0) {
+        http_response_code(201);
+        $response = array("message" => "There is no user in our system with that ID");
+        echo json_encode($response);
+        exit;
+    }
+
+    $row_check = mysqli_fetch_assoc($result_check);
+    $email_verified = $row_check['email_verified'];
+    if ($email != $row_check['email']) {
+        $email_verified = 'no';
+    }
+
+
+    /**
+     * Check if there is a user with that email in DB
+     */
+    $query_check = "SELECT id 
+                    FROM users
+                    WHERE email = '" . $email . "' AND id != '" . $id . "';";
+
+    $result_check = mysqli_query($conn, $query_check);
+
+    if (!$result_check) {
+        http_response_code(202);
+        $response = array("message" => "There is an error on Database", "error" => mysqli_error($conn), "error_number" => mysqli_errno($conn));
+        echo json_encode($response);
+        exit;
+    }
+
+    // if there is a user with that email
+    if (mysqli_num_rows($result_check) > 0) {
+        http_response_code(201);
+        $response = array("message" => "There is a user with that E-Mail");
+        echo json_encode($response);
+        exit;
+    }
+
+    /**
+     * Update data to database
+     */
+    $query_update = "UPDATE users SET
+                     name = '" . $name . "',
+                     surname = '" . $surname . "',
+                     email = '" . $email . "',
+                     email_verified = '" . $email_verified . "',
+                     updated_at = '" . date("Y-m-d H:i:s") . "'
+                      WHERE id = '" . $id . "';";
+
+    $result_update = mysqli_query($conn, $query_update);
+    if (!$result_update) {
+        http_response_code(202);
+        $response = array("message" => "There is an error on Database", "error" => mysqli_error($conn), "error_number" => mysqli_errno($conn));
+        echo json_encode($response);
+        exit;
+    }
+
+    http_response_code(200);
+    $response = array("message" => "User updated successfully");
     echo json_encode($response);
     exit;
 }

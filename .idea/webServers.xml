@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="249a9b22-577c-4728-b15c-0090dc34762b" name="Luba">
+        <fileTransfer rootFolder="/var/www/vhosts/luba-project.cloud" accessType="SFTP" host="luba-project.cloud" port="22" sshConfigId="64fbfe4b-0d1c-4556-b263-4a6b1d10199b" sshConfig="Luba">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

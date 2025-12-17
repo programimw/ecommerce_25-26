@@ -14,6 +14,8 @@
     <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
     <!-- Datatable -->
     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">

@@ -22,6 +22,8 @@
 <script>
     $("#<?=$filenameArray[0]?>").addClass("active");
 </script>
+<!-- Toastr script -->
+<script src="js/plugins/toastr/toastr.min.js"></script>
 
 </body>
 

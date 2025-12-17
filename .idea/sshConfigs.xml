@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="luba-project.cloud" id="64fbfe4b-0d1c-4556-b263-4a6b1d10199b" port="22" customName="Luba" nameFormat="CUSTOM" username="eduart.torba" useOpenSSHConfig="true">
+        <option name="customName" value="Luba" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

@@ -84,7 +84,7 @@
                         </div>
                         <div class="ibox-content">
 
-                            <form action="login.php" class="m-t" role="form">
+                            <form action="#" class="m-t" role="form">
                                 <div class="form-group">
                                     <input class="form-control" id="name" name="name"
                                            placeholder="Name" required="" type="text"
