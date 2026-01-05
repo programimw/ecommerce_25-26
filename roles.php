@@ -6,31 +6,23 @@ if ($_SESSION['role'] != "admin"){
     header("Location: profile.php");
 }
 
-$query_users = "SELECT 
+$query_roles = "SELECT 
                 id, 
                 name,
-                surname,
-                email,
-                role,
-                email_verified,
                 created_at
-                FROM users";
+                FROM roles";
 
 
-$result_users = mysqli_query($conn, $query_users);
-if (!$result_users){
+$result_roles = mysqli_query($conn, $query_roles);
+if (!$result_roles){
     echo mysqli_error($conn);
     exit;
 }
 
 $data = array();
-while ($row = mysqli_fetch_assoc($result_users)){
+while ($row = mysqli_fetch_assoc($result_roles)){
     $data[$row['id']]['id'] = $row['id'];
     $data[$row['id']]['name'] = $row['name'];
-    $data[$row['id']]['surname'] = $row['surname'];
-    $data[$row['id']]['email'] = $row['email'];
-    $data[$row['id']]['role'] = $row['role'];
-    $data[$row['id']]['email_verified'] = $row['email_verified'];
     $data[$row['id']]['created_at'] = $row['created_at'];
 }
 
@@ -44,7 +36,7 @@ while ($row = mysqli_fetch_assoc($result_users)){
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>User List</h2>
+                <h2>Role List</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="index.html">Home</a>
@@ -53,12 +45,11 @@ while ($row = mysqli_fetch_assoc($result_users)){
                         <a>E-commerce</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <strong>User List</strong>
+                        <strong>Role List</strong>
                     </li>
                 </ol>
             </div>
             <div class="col-lg-2">
-
             </div>
         </div>
 
@@ -68,8 +59,8 @@ while ($row = mysqli_fetch_assoc($result_users)){
                     <div class="ibox ">
                         <div class="ibox-title" style="padding: 30px;">
                             <div class="ibox-tools">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal"
-                                    <i class="fa fa-plus"></i> Add User
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRoleModal"
+                                    <i class="fa fa-plus"></i> Add Role
                                 </button>
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -79,16 +70,12 @@ while ($row = mysqli_fetch_assoc($result_users)){
 
                         <div class="ibox-content">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover user-list-table" >
+                                <table class="table table-striped table-bordered table-hover role-list-table" >
                                     <thead>
                                     <tr>
                                         <th>Action</th>
                                         <th>Name</th>
-                                        <th>Surname</th>
-                                        <th>E-Mail</th>
-                                        <th>Role</th>
-                                        <th>E-Mail verified</th>
-                                        <th>User Registered at</th>
+                                        <th>Created At</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -96,21 +83,17 @@ while ($row = mysqli_fetch_assoc($result_users)){
                                             <tr id = "row_<?=$id?>">
                                                 <td>
                                                     <nobr>
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal"
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roleModal"
                                                         onclick = "fillModalData('<?=$id?>')">
                                                             <i class="fa fa-edit"></i>
                                                         </button>
                                                         <button type="button" class="btn btn-danger"
-                                                        onclick = "deleteUser('<?=$id?>')">
+                                                        onclick = "deleteRole('<?=$id?>')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </nobr>
                                                 </td>
                                                 <td id = "name_<?=$id?>"><?=$values['name']?></td>
-                                                <td id = "surname_<?=$id?>"><?=$values['surname']?></td>
-                                                <td id = "email_<?=$id?>"><?=$values['email']?></td>
-                                                <td id = "role_<?=$id?>"><?=$values['role']?></td>
-                                                <td id = "email_verified_<?=$id?>"><?=$values['email_verified']?></td>
                                                 <td id = "created_at_<?=$id?>"><?=$values['created_at']?></td>
                                             </tr>
                                         <?php } ?>
@@ -131,14 +114,14 @@ while ($row = mysqli_fetch_assoc($result_users)){
     </div>
 
 
-<div class="modal inmodal" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="roleModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated fadeInDown">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-edit modal-icon"></i>
-                <h4 class="modal-title">Edit User's data</h4>
-                <small class="font-bold">Below you can modify users data.</small>
+                <h4 class="modal-title">Edit Role's data</h4>
+                <small class="font-bold">Below you can modify role data.</small>
             </div>
             <div class="modal-body">
                 <form action="#" class="m-t" role="form">
@@ -149,25 +132,13 @@ while ($row = mysqli_fetch_assoc($result_users)){
                                value="">
                         <span id = "name_message" class="pull-left text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <input class="form-control" id="surname_modal" name="surname"
-                               placeholder="Surname" required="" type="text"
-                               value="">
-                        <span id = "surname_message" class="pull-left text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" id="email_modal" name="email"
-                               placeholder="Email" required="" type="email"
-                               value="">
-                        <span id = "email_message" class="pull-left text-danger"></span>
-                    </div>
                 </form>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary"
-                        onclick="saveUserData()">
+                        onclick="saveRoleData()">
                     <i class="fa fa-save"></i> Save
                 </button>
             </div>
@@ -176,40 +147,30 @@ while ($row = mysqli_fetch_assoc($result_users)){
 </div>
 
 
-<div class="modal inmodal" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="addRoleModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated fadeInDown">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-user modal-icon"></i>
-                <h4 class="modal-title">Add new User</h4>
+                <h4 class="modal-title">Add new Role</h4>
             </div>
             <div class="modal-body">
                 <form class="m-t" role="form">
                     <input type="hidden" id = "id" name="id" value="2">
-                    <input type="hidden" id = "username" name="username" value="test1234">
 
                     <div class="form-group mb-4">
                         <input type="text" class="form-control" placeholder="Name"
                                name="name" id="name" >
                         <span id = "name_message" class="pull-left text-danger"></span>
                     </div>
-                    <div class="form-group mb-4">
-                        <input type="text" class="form-control" placeholder="Surname"
-                               name="surname" id="surname" >
-                        <span id = "surname_message" class="pull-left text-danger"></span>
-                    </div>
-                    <div class="form-group mb-4">
-                        <input type="email" class="form-control" placeholder="Email"
-                               name="email" id="email" >
-                        <span id = "email_message" class="pull-left text-danger"></span>            </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary"
-                        onclick="register()">
-                    <i class="fa fa-save"></i> Add User
+                        onclick="addRole()">
+                    <i class="fa fa-save"></i> Add Role
                 </button>
             </div>
         </div>
@@ -242,7 +203,7 @@ require_once "includes/login/footer.php";
     }
 
     $(document).ready(function(){
-        $('.user-list-table').DataTable({
+        $('.role-list-table').DataTable({
             pageLength: 10,
             responsive: true,
             dom: '<"html5buttons"B>lTfgitp',
@@ -270,7 +231,7 @@ require_once "includes/login/footer.php";
     function fillModalData(id){
         // prepare the data to send to backend
         var data = new FormData();
-        data.append("action", "fillModalData");
+        data.append("action", "fillRoleModalData");
         data.append("id", id);
         $("#id_modal").val(id);
 
@@ -291,27 +252,20 @@ require_once "includes/login/footer.php";
                     if (call.status == 200) {
                        // fill form with the information fetched
                         $("#name_modal").val(response.data.name);
-                        $("#surname_modal").val(response.data.surname);
-                        $("#email_modal").val(response.data.email);
                     } else {
                         toastr["warning"](response.message, "Warning");
                         // empty the modal form
                         $("#name_modal").val("");
-                        $("#surname_modal").val("");
-                        $("#email_modal").val("");
                     }
                 },
             })
         }
 
 
-        function saveUserData(){
+        function saveRoleData(){
 
             var id = $("#id_modal").val();
             var name = $("#name_modal").val();
-            var surname = $("#surname_modal").val();
-            var email = $("#email_modal").val();
-            var email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             var alpha_regex = /^[a-zA-Z]{3,40}$/;
             var error = 0;
 
@@ -325,32 +279,11 @@ require_once "includes/login/footer.php";
                 $("#name_message").text("");
             }
 
-            // validimi i mbiemrit
-            if (!alpha_regex.test(surname)){
-                $("#surname_modal").addClass("border-danger");
-                $("#surname_message").text("Surname must be aphabumeric at least 3 letters.");
-                error++;
-            } else {
-                $("#surname_modal").removeClass("border-danger")
-                $("#surname_message").text("");
-            }
-
-            // Validation of the E-Mail
-            if (!email_regex.test(email)){
-                $("#email_modal").addClass("border-danger");
-                $("#email_message").text("E-Mail format is not allowed");
-                error++;
-            } else {
-                $("#email_modal").removeClass("border-danger")
-                $("#email_message").text("");
-            }
             // prepare the data to send to backend
             var data = new FormData();
-            data.append("action", "update_user_data");
+            data.append("action", "update_role_data");
             data.append("id", id);
             data.append("name", name);
-            data.append("surname", surname);
-            data.append("email", email);
 
             // send data on backed
             if (error == 0) {
@@ -370,9 +303,7 @@ require_once "includes/login/footer.php";
                             // setTimeout(function (){
                                 // window.location.reload();
                               $("name_"+id).text(name);
-                              $("surname_"+id).text(surname);
-                              $("email_"+id).text(email);
-                              $('#userModal').modal('toggle');
+                              $('#roleModal').modal('toggle');
                               $("#row_"+id).addClass("animated flash")
                             // },2000);
                         } else {
@@ -383,10 +314,10 @@ require_once "includes/login/footer.php";
             }
         }
 
-        function deleteUser(id){
+        function deleteRole(id){
             // prepare the data to send to backend
             var data = new FormData();
-            data.append("action", "delete_user");
+            data.append("action", "delete_role");
             data.append("id", id);
 
             // send data on backed
@@ -416,12 +347,9 @@ require_once "includes/login/footer.php";
 
         }
 
-    function register(){
+    function addRole(){
 
         var name = $("#name").val();
-        var surname = $("#surname").val();
-        var email = $("#email").val();
-        var email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         var alpha_regex = /^[a-zA-Z]{3,40}$/;
         var error = 0;
 
@@ -435,32 +363,10 @@ require_once "includes/login/footer.php";
             $("#name_message").text("");
         }
 
-        // validimi i mbiemrit
-        if (!alpha_regex.test(surname)){
-            $("#surname").addClass("border-danger");
-            $("#surname_message").text("Surname must be aphabumeric at least 3 letters.");
-            error++;
-        } else {
-            $("#surname").removeClass("border-danger")
-            $("#surname_message").text("");
-        }
-
-        // Validation of the E-Mail
-        if (!email_regex.test(email)){
-            $("#email").addClass("border-danger");
-            $("#email_message").text("E-Mail format is not allowed");
-            error++;
-        } else {
-            $("#email").removeClass("border-danger")
-            $("#email_message").text("");
-        }
-
         // prepare the data to send to backend
         var data = new FormData();
-        data.append("action", "add_user");
+        data.append("action", "add_role");
         data.append("name", name);
-        data.append("surname", surname);
-        data.append("email", email);
 
         // send data on backed
         if (error == 0) {
@@ -476,7 +382,7 @@ require_once "includes/login/footer.php";
                 success: function (response, status, call) {
                     response = JSON.parse(response);
                     toastr["success"](response.message, "Success")
-                    $('#addUserModal').modal('toggle');
+                    $('#addRoleModal').modal('toggle');
                     if (call.status == 200) {
                         setTimeout(function (){
                             window.location.reload();

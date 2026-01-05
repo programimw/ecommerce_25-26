@@ -33,6 +33,11 @@
                         <span class="nav-label">Users</span>
                     </a>
                 </li>
+                <li id="roles">
+                    <a href="roles.php"><i class="fa fa-user"></i>
+                        <span class="nav-label">Roles</span>
+                    </a>
+                </li>
             <?php }?>
         </ul>
 
