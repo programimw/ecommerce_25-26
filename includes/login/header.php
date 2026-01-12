@@ -17,6 +17,9 @@
     <!-- Toastr style -->
     <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
 
+    <!-- Ladda style -->
+    <link href="css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet">
+
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -25,7 +28,8 @@
 <div id="wrapper">
 <?php
 require_once "connect.php";
-error_reporting(0);
+require_once "functions.php";
+//error_reporting(0);
 session_start();
 /**
  * Check if the user is logged in

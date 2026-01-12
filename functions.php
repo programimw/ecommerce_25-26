@@ -47,3 +47,21 @@ function sendEmail($data)
     }
 }
 
+
+function getUserIp()
+{
+    if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"]) && isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+        $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+    } else {
+        $ip = $_SERVER["REMOTE_ADDR"];
+    }
+
+    return $ip;
+}
+
+function printArray($array)
+{
+    echo "<pre>";
+    print_r($array);
+    echo "</pre>";
+}
