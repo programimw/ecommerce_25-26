@@ -231,7 +231,7 @@ require_once "includes/login/footer.php";
      * Marrja e nje setup intent nga backend gati per tu vendosur vendosur te nje customer
      * nese ai do te krijoje nje karte te re per pagesa. Ne te kundert perdor nje qe ka aktualisht
      */
-    var stripe = Stripe("pk_test_51QdZaOIA6j8AgjdoONN2YmHKTojcogE82ZcF8ntm0l1YwdZNUKNnlDgxb62vZ7IBVbS1NfyGQoRNxjWn6o0bvJxE00alHhiENc");
+    var stripe = Stripe("");
     var elements = stripe.elements();
     var cardElement = elements.create('card');
     cardElement.mount('#card-element');
